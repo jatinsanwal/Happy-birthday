@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Mummy 💕</title>
+
+<style>
+body{
+  margin:0;
+  font-family:sans-serif;
+  background:linear-gradient(135deg,#ff9ecb,#ff4d88);
+  color:white;
+  text-align:center;
+}
+
+/* pages */
+.page{display:none;min-height:100vh;justify-content:center;align-items:center;flex-direction:column;}
+.active{display:flex;}
+
+/* banner */
+.banner{
+  position:absolute;
+  top:10px;
+  width:100%;
+  font-size:20px;
+}
+
+/* button */
+button{
+  padding:12px 25px;
+  border:none;
+  border-radius:25px;
+  background:white;
+  color:#ff4d88;
+  font-weight:bold;
+  margin-top:20px;
+}
+
+/* typing */
+#typing{
+  font-size:22px;
+  max-width:300px;
+}
+
+/* cake */
+#cake{
+  width:200px;
+  margin-top:20px;
+}
+
+/* fireworks bg */
+.fire{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:url('https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif') center/cover;
+  opacity:0;
+}
+.show{opacity:0.5;}
+
+/* hearts */
+.heart{
+  position:fixed;
+  top:-10px;
+  animation:fall 6s linear infinite;
+}
+@keyframes fall{to{transform:translateY(100vh);}}
+
+/* balloons */
+.balloon{
+  position:fixed;
+  bottom:-50px;
+  animation:rise 8s linear infinite;
+}
+@keyframes rise{to{transform:translateY(-120vh);}}
+</style>
+</head>
+
+<body>
+
+<div id="fire" class="fire"></div>
+
+<!-- PAGE 1 -->
+<div class="page active" id="p1">
+  <div class="banner">🎉 Happy Birthday 🎉</div>
+  <h1 id="title"></h1>
+  <button onclick="next(2)">Enter 🎀</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="p2">
+  <div class="banner">🎂 Celebration Time 🎂</div>
+
+  <!-- REAL CAKE GIF -->
+  <img id="cake" src="https://media.giphy.com/media/3o6ZtpxSZbQRRnwCKQ/giphy.gif">
+
+  <button onclick="cutCake()">Cut Cake 🔪</button>
+  <p id="cakeMsg"></p>
+
+  <button onclick="next(3)">Next 💕</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="p3">
+  <h1>💌 Message</h1>
+  <p id="typing"></p>
+  <button onclick="next(4)">Memories 🎥</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="p4">
+  <h1>🎬 Memories</h1>
+  <video controls width="90%">
+    <source src="your-video.mp4">
+  </video>
+  <button onclick="next(5)">Final 🎁</button>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page" id="p5">
+  <h1>💖 I Love You Mummy 💖</h1>
+</div>
+
+<script>
+function next(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('p'+n).classList.add('active');
+
+  if(n==1) startTitle();
+  if(n==3) startTyping();
+}
+
+/* typing title */
+function startTitle(){
+  type("Happy Birthday Mummy Ji 💕","title",50);
+}
+
+/* typing message */
+function startTyping(){
+  type("Mummy ji aap meri life ka sabse important hissa ho 💖\n\nAap meri strength ho 💕\n\nThank you for everything ❤️","typing",40);
+}
+
+function type(text,id,speed){
+  let i=0;
+  let el=document.getElementById(id);
+  el.innerHTML="";
+  function t(){
+    if(i<text.length){
+      el.innerHTML+= text.charAt(i)=="\n"?"<br>":text.charAt(i);
+      i++;
+      setTimeout(t,speed);
+    }
+  }
+  t();
+}
+
+/* cake cut */
+function cutCake(){
+  document.getElementById("cakeMsg").innerHTML="🎉 Happy Birthday Mummy 💕";
+  document.getElementById("fire").classList.add("show");
+}
+
+/* hearts */
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.innerHTML="💗";
+  h.className="heart";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},500);
+
+/* balloons */
+setInterval(()=>{
+  let b=document.createElement("div");
+  b.innerHTML="🎈";
+  b.className="balloon";
+  b.style.left=Math.random()*100+"vw";
+  document.body.appendChild(b);
+  setTimeout(()=>b.remove(),8000);
+},1500);
+
+startTitle();
+</script>
+
+</body>
+</html>
